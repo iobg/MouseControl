@@ -30,16 +30,16 @@ stdin.on( 'keypress',( ch,key )=>{
 const setMousePosition = ({name})=>{
 	const {x,y} = robot.getMousePos()
 	if(name==="w"){
-		robot.moveMouseSmooth(x,y-20)
+		robot.moveMouseSmooth(x,y-10)
 	}
 	else if(name==="a"){
-		robot.moveMouseSmooth(x-20,y)
+		robot.moveMouseSmooth(x-10,y)
 	}
 	else if(name==="s"){
-		robot.moveMouseSmooth(x,y+20)
+		robot.moveMouseSmooth(x,y+10)
 	}
 	else if(name==="d"){
-		robot.moveMouseSmooth(x+20,y)
+		robot.moveMouseSmooth(x+10,y)
 	}
 	else if(name==="space"){
 		robot.mouseClick()
