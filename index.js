@@ -4,7 +4,6 @@ const express = require('express')
 const app = express()
 const emitter = new EventEmitter()
 const robot = require('robot-js')
-console.log(robot)
 var stdin = process.stdin;
 
 // without this, we would only get streams once enter is pressed
@@ -25,10 +24,20 @@ stdin.on( 'data', function( key ){
     process.exit();
   }
   // write the key to stdout all normal like
-  process.stdout.write( key );
 });
 const setMousePosition = (key)=>{
-	console.log(key)
 	const {x,y} = robot.Mouse.getPos()
-	robot.Mouse.setPos(x+5,y+5)
+	if(key==="w"){
+		robot.Mouse.setPos(x,y-10)
+	}
+	else if(key==="a"){
+		robot.Mouse.setPos(x-10,y)
+	}
+	else if(key==="s"){
+		robot.Mouse.setPos(x,y+10)
+	}
+	else if(key==="d"){
+		robot.Mouse.setPos(x+10,y)
+	}
+	
 }
