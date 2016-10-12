@@ -3,8 +3,10 @@ const EventEmitter = require('events')
 const express = require('express')
 const app = express()
 const emitter = new EventEmitter()
-const robot = require('robot-js')
+const robot = require('robotjs')
+const keypress = require('keypress')
 var stdin = process.stdin;
+keypress(stdin)
 
 // without this, we would only get streams once enter is pressed
 stdin.setRawMode( true );
@@ -15,29 +17,32 @@ stdin.resume();
 
 // i don't want binary, do you?
 stdin.setEncoding( 'utf8' );
-
+console.log('listening for keypresses')
 // on any data into stdin
-stdin.on( 'data', function( key ){
+stdin.on( 'keypress',( ch,key )=>{
   // ctrl-c ( end of text )
   setMousePosition(key)
-  if ( key === '\u0003' ) {
+  if ( key.sequence === '\u0003' ) {
     process.exit();
   }
-  // write the key to stdout all normal like
 });
-const setMousePosition = (key)=>{
-	const {x,y} = robot.Mouse.getPos()
-	if(key==="w"){
-		robot.Mouse.setPos(x,y-10)
+
+const setMousePosition = ({name})=>{
+	const {x,y} = robot.getMousePos()
+	if(name==="w"){
+		robot.moveMouseSmooth(x,y-20)
 	}
-	else if(key==="a"){
-		robot.Mouse.setPos(x-10,y)
+	else if(name==="a"){
+		robot.moveMouseSmooth(x-20,y)
 	}
-	else if(key==="s"){
-		robot.Mouse.setPos(x,y+10)
+	else if(name==="s"){
+		robot.moveMouseSmooth(x,y+20)
 	}
-	else if(key==="d"){
-		robot.Mouse.setPos(x+10,y)
+	else if(name==="d"){
+		robot.moveMouseSmooth(x+20,y)
+	}
+	else if(name==="space"){
+		robot.mouseClick()
 	}
 	
 }
