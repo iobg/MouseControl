@@ -1,8 +1,5 @@
 'use strict'
-const EventEmitter = require('events')
-const express = require('express')
-const app = express()
-const emitter = new EventEmitter()
+
 const robot = require('robotjs')
 const keypress = require('keypress')
 var stdin = process.stdin;
